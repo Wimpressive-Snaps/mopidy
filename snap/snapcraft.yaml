@@ -1,0 +1,35 @@
+name: mopidy
+base: core18
+version: 'git'
+summary: An extensible music server.
+description: |
+  Mopidy is an extensible music server that plays music from local disk, Spotify,
+  SoundCloud, Google Play Music, and more. You edit the playlist from any phone,
+  tablet, or computer using a range of MPD and web clients.
+
+grade: stable
+confinement: strict
+
+parts:
+  mopidy:
+    plugin: python
+    python-version: python2
+    source: .
+    stage-packages:
+      - gir1.2-gstreamer-1.0
+      - gir1.2-gst-plugins-base-1.0
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-tools
+      - libgpm2
+      - python-gst-1.0
+
+apps:
+  mopidy:
+    command: bin/mopidy
+    plugs:
+      - home
+      - network
+      - network-bind
+      - pulseaudio
+      - removable-media
